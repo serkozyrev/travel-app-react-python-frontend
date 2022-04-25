@@ -16,13 +16,17 @@ function Users() {
           process.env.REACT_APP_BACKEND_URL + "/users/"
         );
 
-        setLoadedUsers(responseData.users);
+        if (responseData.message) {
+          setLoadedUsers(responseData.message);
+        } else {
+          setLoadedUsers(responseData.users);
+        }
       } catch (err) {}
     };
 
     fetchUsers();
   }, [sendRequest]);
-
+  console.log(loadedUsers);
   return (
     <Fragment>
       <ErrorModal error={error} onClear={clearError} />

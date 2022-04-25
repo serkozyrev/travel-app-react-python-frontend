@@ -18,7 +18,11 @@ const UserPlaces = () => {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}/places/user/${userId}`
         );
-        setLoadedPlaces(responseData.places);
+        if (responseData.message) {
+          setLoadedPlaces(responseData.message);
+        } else {
+          setLoadedPlaces(responseData.places);
+        }
       } catch (err) {}
     };
     fetchPlaces();

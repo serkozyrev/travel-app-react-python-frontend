@@ -7,7 +7,7 @@ import Button from "../../shared/components/FormElements/Button/Button";
 import "./PlaceList.css";
 
 const PLaceList = (props) => {
-  if (props.items.length === 0) {
+  if (typeof props.items === "string") {
     return (
       <div className="place-list center">
         <Card>
@@ -16,26 +16,26 @@ const PLaceList = (props) => {
         </Card>
       </div>
     );
+  } else {
+    return (
+      <ul className="place-list">
+        {props.items.map((place) => (
+          <PlaceItem
+            key={place.id}
+            id={place.id}
+            image={place.image}
+            title={place.title}
+            description={place.description}
+            address={place.address}
+            creatorId={place.creator}
+            coordinates={place.location}
+            image_type={place.image_type}
+            onDelete={props.onDeletePlace}
+          />
+        ))}
+      </ul>
+    );
   }
-
-  return (
-    <ul className="place-list">
-      {props.items.map((place) => (
-        <PlaceItem
-          key={place.id}
-          id={place.id}
-          image={place.image}
-          title={place.title}
-          description={place.description}
-          address={place.address}
-          creatorId={place.creator}
-          coordinates={place.location}
-          image_type={place.image_type}
-          onDelete={props.onDeletePlace}
-        />
-      ))}
-    </ul>
-  );
 };
 
 export default PLaceList;
